@@ -2,6 +2,7 @@
 """Lockboxes
 """
 
+
 def canUnlockAll(boxes):
     """
         args(list): box
