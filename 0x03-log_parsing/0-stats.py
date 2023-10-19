@@ -18,15 +18,15 @@ output = ""
 counter = 0
 for line in sys.stdin:
     try:
-        list_from_line = line.split()[::-1]
+        list_from_line = line.split()
         if len(list_from_line) < 3:
             continue
 
         counter += 1
 
-        if list_from_line[1] in status_codes.keys():
-            status_codes[list_from_line[1]] += 1
-            files_size += int(list_from_line[0])
+        if list_from_line[-2] in status_codes.keys():
+            status_codes[list_from_line[-2]] += 1
+        files_size += int(list_from_line[-1])
 
         if counter == 10:
             output += "File size: {}\n".format(files_size)
@@ -36,6 +36,7 @@ for line in sys.stdin:
             counter = 0
             output = ""
     finally:
+        output = ""
         output += "File size: {}\n".format(files_size)
         for key in status_codes.keys():
             output += "{}: {}\n".format(key, status_codes[key])
