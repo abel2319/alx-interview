@@ -32,9 +32,7 @@ for line in sys.stdin:
             output += "File size: {}\n".format(files_size)
             for key in status_codes.keys():
                 output += "{}: {}\n".format(key, status_codes[key])
-                status_codes[key] = 0
             print(output, end='')
-            files_size = 0
             counter = 0
             output = ""
     finally:
