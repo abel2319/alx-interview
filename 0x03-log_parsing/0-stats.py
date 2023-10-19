@@ -18,7 +18,10 @@ output = ""
 counter = 0
 for line in sys.stdin:
     try:
-        list_from_line = line.split(' ')[::-1]
+        list_from_line = line.split()[::-1]
+        if len(list_from_line) < 3:
+            continue
+
         counter += 1
 
         if list_from_line[1] in status_codes.keys():
@@ -34,7 +37,7 @@ for line in sys.stdin:
             files_size = 0
             counter = 0
             output = ""
-    except KeyboardInterrupt:
+    finally:
         output += "File size: {}\n".format(files_size)
         for key in status_codes.keys():
             output += "{}: {}\n".format(key, status_codes[key])
