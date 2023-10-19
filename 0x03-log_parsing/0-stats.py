@@ -31,13 +31,16 @@ for line in sys.stdin:
         if counter == 10:
             output += "File size: {}\n".format(files_size)
             for key in status_codes.keys():
-                output += "{}: {}\n".format(key, status_codes[key])
+                if status_codes[key] > 0:
+                    output += "{}: {}\n".format(key, status_codes[key])
             print(output, end='')
             counter = 0
             output = ""
-    finally:
+    except KeyboardInterrupt:
         output = ""
         output += "File size: {}\n".format(files_size)
         for key in status_codes.keys():
-            output += "{}: {}\n".format(key, status_codes[key])
+                if status_codes[key] > 0:
+                    output += "{}: {}\n".format(key, status_codes[key])
         print(output, end='')
+        raise
