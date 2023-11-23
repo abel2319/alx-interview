@@ -10,6 +10,9 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
+    if total in coins:
+        return 1
+
     nbr_coin = 0
     coins.sort(reverse=True)
 
