@@ -10,6 +10,9 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
+    if coins == [] or coins is None:
+        return -1
+
     if total in coins:
         return 1
 
