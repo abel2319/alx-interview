@@ -7,6 +7,9 @@ def isPrime(nbr):
     """ check if nbr is Prime or not
     return True or False
     """
+    if nbr == 2 or nbr == 3:
+        return True
+
     for i in range(2, int(nbr / 2)):
         if nbr % i == 0:
             return False
