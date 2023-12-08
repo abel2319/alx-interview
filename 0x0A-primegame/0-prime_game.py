@@ -28,22 +28,25 @@ def isWinner(x, nums):
     if x is None or nums is None:
         return None
 
-    if x == 0 or len(nums) == 0:
+    if x < 1 or len(nums) == 0:
         return None
 
     nbr_of_primes = 0
     for round in range(x):
         nbr_of_primes = 0
         if nums[round] == 1:
-            scores['Ben'] = scores['Ben'] + 1
+            scores['Ben'] += 1
         else:
             for i in range(2, nums[round] + 1):
                 if isPrime(i):
                     nbr_of_primes = nbr_of_primes + 1
 
             if nbr_of_primes % 2 == 0:
-                scores['Ben'] = scores['Ben'] + 1
+                scores['Ben'] += 1
             else:
-                scores['Maria'] = scores['Maria'] + 1
+                scores['Maria'] += 1
+
+    if scores['Ben'] == scores['Maria']:
+        return None
 
     return 'Ben' if scores['Ben'] > scores['Maria'] else 'Maria'
