@@ -1,55 +1,34 @@
 #!/usr/bin/python3
-""" Prime Game
+"""Prime game winner determination
 """
 
 
-def isPrime(nbr):
-    """ check if nbr is Prime or not
-    return True or False
-    """
-    if nbr == 2 or nbr == 3:
-        return True
-
-    for i in range(2, int(nbr / 2)):
-        if nbr % i == 0:
-            return False
-    return True
-
-
 def isWinner(x, nums):
+    """Prime game winner determination
     """
-        where x is the number of rounds and nums is an array of n
-        Return: name of the player that won the most rounds
-        If the winner cannot be determined, return None
-        You can assume n and x will not be larger than 10000
-    """
-    scores = {
-        'Maria': 0,
-        'Ben': 0
-    }
-
-    if x is None or nums is None:
+    if x < 1 or not nums:
         return None
 
-    if x < 1 or len(nums) == 0:
+    m_wins = 0
+    b_wins = 0
+
+    # generate a list of prime number based on the max numbers in num
+    n = max(nums)
+    primes = [True] * (n + 1)
+    primes[0] = primes[1] = False
+
+    for x in range(2, int(n**0.5) + 1):
+        if primes[x]:
+            for y in range(x**2, n + 1, x):
+                primes[y] = False
+
+    # count the no of pm less than n i nums
+    for n in nums:
+        count = sum(primes[2:n+1])
+        b_wins += count % 2 == 0
+        m_wins += count % 2 == 1
+
+    if m_wins == b_wins:
         return None
 
-    nbr_of_primes = 0
-    for round in range(x):
-        nbr_of_primes = 0
-        if nums[round] == 1:
-            scores['Ben'] += 1
-        else:
-            for i in range(2, nums[round] + 1):
-                if isPrime(i):
-                    nbr_of_primes = nbr_of_primes + 1
-
-            if nbr_of_primes % 2 == 0:
-                scores['Ben'] += 1
-            else:
-                scores['Maria'] += 1
-
-    if scores['Ben'] == scores['Maria']:
-        return None
-
-    return 'Ben' if scores['Ben'] > scores['Maria'] else 'Maria'
+    return 'Maria' if m_wins > b_wins else 'Ben'
